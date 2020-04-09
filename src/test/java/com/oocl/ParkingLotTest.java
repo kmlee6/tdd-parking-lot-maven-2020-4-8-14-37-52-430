@@ -43,6 +43,12 @@ public class ParkingLotTest {
     }
 
     @Test
+    public void should_not_return_car_when_not_provide_ticket(){
+        ParkingTicket ticket = parkingLot.park(null);
+        Assert.assertNull(parkingLot.fetch(ticket));
+    }
+
+    @Test
     public void should_not_return_car_when_ticket_has_used(){
         ParkingTicket ticket = parkingLot.park(car);
         parkingLot.fetch(ticket);
