@@ -9,20 +9,20 @@ public class ParkingLot {
     int capacity;
     HashMap<ParkingTicket, Car> ticketCarHashMap = new HashMap<ParkingTicket, Car>();
 
-    public ParkingLot(){
+    public ParkingLot() {
         this.capacity = DEFAULT_CAPACITY;
     }
 
-    public ParkingLot(int capacity){
+    public ParkingLot(int capacity) {
         this.capacity = capacity;
     }
 
-    public boolean isFull(){
-        return capacity==ticketCarHashMap.size();
+    public boolean isFull() {
+        return capacity == ticketCarHashMap.size();
     }
 
     public ParkingTicket park(Car car) {
-        if(isFull()){
+        if (isFull()) {
             return null;
         }
         ParkingTicket returnTicket = new ParkingTicket();
