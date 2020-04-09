@@ -63,33 +63,4 @@ public class ParkingLotTest {
         ParkingTicket benzTicket = smallParkingLot.park(benz);
         assertNull(parkingLot.fetch(benzTicket));
     }
-
-    @Test
-    public void should_park_by_parking_boy() {
-        ParkingBoy tom = new ParkingBoy(parkingLot);
-        ParkingTicket parkingTicket = tom.park(car);
-        assertNotNull(parkingTicket);
-    }
-
-    @Test
-    public void should_return_car_when_providing_ticket_to_parking_boy() {
-        ParkingBoy tom = new ParkingBoy(parkingLot);
-        ParkingTicket parkingTicket = tom.park(car);
-        assertEquals(car, tom.fetch(parkingTicket));
-    }
-
-    @Test
-    public void should_not_double_park_for_a_single_car() {
-        ParkingBoy tom = new ParkingBoy(parkingLot);
-        ParkingTicket parkingTicket = tom.park(car);
-        ParkingTicket anotherTicket = tom.park(car);
-        assertNull(anotherTicket);
-    }
-
-    @Test
-    public void should_not_park_null(){
-        ParkingBoy tom = new ParkingBoy(parkingLot);
-        ParkingTicket parkingTicket = tom.park(null);
-        assertNull(parkingTicket);
-    }
 }
