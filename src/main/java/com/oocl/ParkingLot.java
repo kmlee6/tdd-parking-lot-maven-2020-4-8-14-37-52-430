@@ -17,6 +17,10 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
+    public boolean isNotACar(Car car){
+        return car==null;
+    }
+
     public boolean isFull() {
         return capacity == ticketCarHashMap.size();
     }
@@ -26,7 +30,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if (isFull() || isDoublePark(car)) {
+        if ( isFull() || isNotACar(car) || isDoublePark(car)) {
             return null;
         }
         ParkingTicket returnTicket = new ParkingTicket();

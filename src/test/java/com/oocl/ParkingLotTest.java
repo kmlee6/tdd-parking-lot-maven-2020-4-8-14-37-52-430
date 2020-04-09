@@ -85,4 +85,11 @@ public class ParkingLotTest {
         ParkingTicket anotherTicket = tom.park(car);
         assertNull(anotherTicket);
     }
+
+    @Test
+    public void should_not_park_null(){
+        ParkingBoy tom = new ParkingBoy(parkingLot);
+        ParkingTicket parkingTicket = tom.park(null);
+        assertNull(parkingTicket);
+    }
 }
