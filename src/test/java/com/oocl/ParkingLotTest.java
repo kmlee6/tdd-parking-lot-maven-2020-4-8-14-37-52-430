@@ -41,4 +41,11 @@ public class ParkingLotTest {
         ParkingTicket fakeTicket = new ParkingTicket();
         Assert.assertFalse(car.equals(parkingLot.fetch(fakeTicket)));
     }
+
+    @Test
+    public void should_not_return_car_when_ticket_has_used(){
+        ParkingTicket ticket = parkingLot.park(car);
+        parkingLot.fetch(ticket);
+        Assert.assertNull(parkingLot.fetch(ticket));
+    }
 }
