@@ -77,4 +77,12 @@ public class ParkingLotTest {
         ParkingTicket parkingTicket = tom.park(car);
         assertEquals(car, tom.fetch(parkingTicket));
     }
+
+    @Test
+    public void should_not_double_park_for_a_single_car() {
+        ParkingBoy tom = new ParkingBoy(parkingLot);
+        ParkingTicket parkingTicket = tom.park(car);
+        ParkingTicket anotherTicket = tom.park(car);
+        assertNull(anotherTicket);
+    }
 }
