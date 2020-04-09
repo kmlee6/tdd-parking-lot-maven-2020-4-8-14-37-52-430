@@ -48,4 +48,13 @@ public class ParkingLotTest {
         parkingLot.fetch(ticket);
         Assert.assertNull(parkingLot.fetch(ticket));
     }
+
+    @Test
+    public void should_not_park_when_parking_lot_full(){
+        ParkingLot smallParkinglot = new ParkingLot(1);
+        smallParkinglot.park(car);
+        Car benz = new Car();
+        ParkingTicket benzTicket = smallParkinglot.park(benz);
+        Assert.assertNull(parkingLot.fetch(benzTicket));
+    }
 }
