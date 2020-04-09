@@ -57,4 +57,11 @@ public class ParkingLotTest {
         ParkingTicket benzTicket = smallParkinglot.park(benz);
         Assert.assertNull(parkingLot.fetch(benzTicket));
     }
+
+    @Test
+    public void should_park_by_parking_boy(){
+        ParkingBoy tom = new ParkingBoy(parkingLot);
+        ParkingTicket parkingTicket = tom.park(car);
+        Assert.assertNotNull(parkingTicket);
+    }
 }
