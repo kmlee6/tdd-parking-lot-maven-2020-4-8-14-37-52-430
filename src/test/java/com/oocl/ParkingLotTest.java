@@ -28,6 +28,14 @@ public class ParkingLotTest {
     }
 
     @Test
+    public void should_return_corresponding_car_when_providing_ticket_given_parking_multiple_car(){
+        ParkingTicket ticket = parkingLot.park(car);
+        Car benz = new Car();
+        ParkingTicket benzTicket = parkingLot.park(benz);
+        Assert.assertEquals(benz, parkingLot.fetch(benzTicket));
+    }
+
+    @Test
     public void should_not_return_car_when_providing_invalid_ticket(){
         ParkingTicket ticket = parkingLot.park(car);
         ParkingTicket fakeTicket = new ParkingTicket();
