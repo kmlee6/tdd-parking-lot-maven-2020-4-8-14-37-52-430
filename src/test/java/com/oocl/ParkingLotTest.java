@@ -18,4 +18,10 @@ public class ParkingLotTest {
         ParkingTicket ticket = parkingLot.park(car);
         Assert.assertNotNull(ticket);
     }
+
+    @Test
+    public void should_return_car_when_provide_corresponding_ticket(){
+        ParkingTicket ticket = parkingLot.park(car);
+        Assert.assertEquals(car, parkingLot.fetch(ticket));
+    }
 }
