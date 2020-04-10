@@ -1,6 +1,7 @@
 package com.oocl;
 
 import com.oocl.exception.NoTicketException;
+import com.oocl.exception.NotEnoughPositionException;
 import com.oocl.exception.UnrecognizedParkingTicketException;
 
 import java.util.HashMap;
@@ -22,16 +23,23 @@ public class ParkingLot {
         return car == null;
     }
 
-    public boolean isFull() {
-        return capacity == ticketCarHashMap.size();
-    }
-
     public boolean isDoublePark(Car car) {
         return ticketCarHashMap.containsValue(car);
     }
 
+    public boolean isFull() {
+        return capacity == ticketCarHashMap.size();
+    }
+
+    public void parkingLotAvailabilityChecking() throws NotEnoughPositionException{
+        if(isFull()){
+            throw new NotEnoughPositionException();
+        }
+    }
+
     public ParkingTicket park(Car car) {
-        if (isFull() || isNotACar(car) || isDoublePark(car)) {
+        parkingLotAvailabilityChecking();
+        if (isNotACar(car) || isDoublePark(car)) {
             return null;
         }
         ParkingTicket returnTicket = new ParkingTicket();
