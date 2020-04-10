@@ -1,5 +1,8 @@
 package com.oocl;
 
+import com.oocl.exception.NoTicketException;
+import com.oocl.exception.UnrecognizedParkingTicketException;
+
 import java.util.HashMap;
 
 public class ParkingLot {
@@ -36,7 +39,10 @@ public class ParkingLot {
         return returnTicket;
     }
 
-    public void isValidTicket(ParkingTicket ticket) throws UnrecognizedParkingTicketException{
+    public void isValidTicket(ParkingTicket ticket) throws UnrecognizedParkingTicketException, NoTicketException {
+        if(ticket==null){
+            throw new NoTicketException();
+        }
         if(!ticketCarHashMap.containsKey(ticket)){
             throw new UnrecognizedParkingTicketException();
         }

@@ -59,4 +59,10 @@ public class ParkingBoyTest {
         ParkingTicket fakeTicket = new ParkingTicket();
         tom.fetch(fakeTicket);
     }
+
+    @Test
+    public void should_throw_exception_when_not_providing_ticket(){
+        expectedException.expect(UnrecognizedParkingTicketException.class);
+
+    }
 }
