@@ -1,9 +1,9 @@
 package com.oocl;
 
+import com.oocl.exception.UnrecognizedParkingTicketException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
@@ -55,7 +55,7 @@ public class ParkingBoyTest {
     public void should_throw_exception_when_providing_unrecognized_ticket(){
         expectedException.expect(UnrecognizedParkingTicketException.class);
         ParkingBoy tom = new ParkingBoy(parkingLot);
-        ParkingTicket parkingTicket = tom.park(null);
+        tom.park(car);
         ParkingTicket fakeTicket = new ParkingTicket();
         tom.fetch(fakeTicket);
     }
