@@ -1,13 +1,11 @@
 package com.oocl;
 
-import sun.security.krb5.internal.Ticket;
-
 import java.util.HashMap;
 
 public class ParkingLot {
     static final int DEFAULT_CAPACITY = 10;
     int capacity;
-    HashMap<ParkingTicket, Car> ticketCarHashMap = new HashMap<ParkingTicket, Car>();
+    HashMap<ParkingTicket, Car> ticketCarHashMap = new HashMap<>();
 
     public ParkingLot() {
         this.capacity = DEFAULT_CAPACITY;
@@ -17,20 +15,20 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public boolean isNotACar(Car car){
-        return car==null;
+    public boolean isNotACar(Car car) {
+        return car == null;
     }
 
     public boolean isFull() {
         return capacity == ticketCarHashMap.size();
     }
 
-    public boolean isDoublePark(Car car){
+    public boolean isDoublePark(Car car) {
         return ticketCarHashMap.containsValue(car);
     }
 
     public ParkingTicket park(Car car) {
-        if ( isFull() || isNotACar(car) || isDoublePark(car)) {
+        if (isFull() || isNotACar(car) || isDoublePark(car)) {
             return null;
         }
         ParkingTicket returnTicket = new ParkingTicket();
@@ -38,7 +36,14 @@ public class ParkingLot {
         return returnTicket;
     }
 
-    public Car fetch(ParkingTicket ticket) {
+    public void isValidTicket(ParkingTicket ticket) throws UnrecognizedParkingTicketException{
+        if(!ticketCarHashMap.containsKey(ticket)){
+            throw new UnrecognizedParkingTicketException();
+        }
+    }
+
+    public Car fetch(ParkingTicket ticket){
+        isValidTicket(ticket);
         return ticketCarHashMap.remove(ticket);
     }
 }

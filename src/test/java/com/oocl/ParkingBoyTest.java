@@ -1,12 +1,18 @@
 package com.oocl;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNull;
 
 public class ParkingBoyTest {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     ParkingLot parkingLot;
     Car car;
 
@@ -43,5 +49,14 @@ public class ParkingBoyTest {
         ParkingBoy tom = new ParkingBoy(parkingLot);
         ParkingTicket parkingTicket = tom.park(null);
         assertNull(parkingTicket);
+    }
+
+    @Test
+    public void should_throw_exception_when_providing_unrecognized_ticket(){
+        expectedException.expect(UnrecognizedParkingTicketException.class);
+        ParkingBoy tom = new ParkingBoy(parkingLot);
+        ParkingTicket parkingTicket = tom.park(null);
+        ParkingTicket fakeTicket = new ParkingTicket();
+        tom.fetch(fakeTicket);
     }
 }
