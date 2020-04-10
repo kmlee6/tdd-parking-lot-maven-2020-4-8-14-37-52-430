@@ -1,6 +1,7 @@
 package com.oocl;
 
 import com.oocl.exception.NoTicketException;
+import com.oocl.exception.NotEnoughPositionException;
 import com.oocl.exception.UnrecognizedParkingTicketException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -46,14 +47,14 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_not_park_null(){
+    public void should_not_park_null() {
         ParkingBoy tom = new ParkingBoy(parkingLot);
         ParkingTicket parkingTicket = tom.park(null);
         assertNull(parkingTicket);
     }
 
     @Test
-    public void should_throw_exception_when_providing_unrecognized_ticket(){
+    public void should_throw_exception_when_providing_unrecognized_ticket() {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         ParkingBoy tom = new ParkingBoy(parkingLot);
         tom.park(car);
@@ -62,10 +63,20 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_exception_when_not_providing_ticket(){
+    public void should_throw_exception_when_not_providing_ticket() {
         expectedException.expect(NoTicketException.class);
         ParkingBoy tom = new ParkingBoy(parkingLot);
         tom.park(car);
         tom.fetch(null);
+    }
+
+    @Test
+    public void should_throw_exception_when_parking_lot_is_full() {
+        expectedException.expect(NotEnoughPositionException.class);
+        ParkingLot smallParkingLot = new ParkingLot(1);
+        ParkingBoy tom = new ParkingBoy(smallParkingLot);
+        tom.park(car);
+        Car benz = new Car();
+        tom.park(benz);
     }
 }
