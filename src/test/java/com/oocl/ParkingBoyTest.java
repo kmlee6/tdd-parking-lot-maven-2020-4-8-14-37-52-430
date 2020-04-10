@@ -1,5 +1,6 @@
 package com.oocl;
 
+import com.oocl.exception.NoTicketException;
 import com.oocl.exception.UnrecognizedParkingTicketException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -62,7 +63,9 @@ public class ParkingBoyTest {
 
     @Test
     public void should_throw_exception_when_not_providing_ticket(){
-        expectedException.expect(UnrecognizedParkingTicketException.class);
-
+        expectedException.expect(NoTicketException.class);
+        ParkingBoy tom = new ParkingBoy(parkingLot);
+        tom.park(car);
+        tom.fetch(null);
     }
 }
