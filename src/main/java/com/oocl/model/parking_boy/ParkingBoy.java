@@ -43,14 +43,18 @@ public class ParkingBoy {
         return selectedParkingLot.park(car);
     }
 
+    public ParkingLot searchTargetParkingLot(ParkingTicket ticket) {
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.isRecognizedParkingTicket(ticket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+    }
+
     public Car fetch(ParkingTicket ticket) {
         if (ticket == null) {
             throw new NoTicketException();
         }
-        ParkingLot targetParkingLot = parkingLots.stream()
-                .filter(parkingLot -> parkingLot.isRecognizedParkingTicket(ticket))
-                .findFirst()
-                .orElseThrow(UnrecognizedParkingTicketException::new);
+        ParkingLot targetParkingLot = searchTargetParkingLot(ticket);
         return targetParkingLot.fetch(ticket);
     }
 }
