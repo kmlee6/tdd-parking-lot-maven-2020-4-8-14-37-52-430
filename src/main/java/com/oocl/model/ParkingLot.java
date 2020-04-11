@@ -19,12 +19,14 @@ public class ParkingLot {
         return capacity == ticketCarHashMap.size();
     }
 
-    public int getFreeParkingSpace(){
+    public int getFreeParkingSpace() {
         return capacity - ticketCarHashMap.size();
     }
 
-    public double getUsage(){
-        return ticketCarHashMap.size()/capacity;
+    public double getUsage() {
+        System.out.println("get Usage:");
+        System.out.println(1.0 * ticketCarHashMap.size() / capacity);
+        return ((double) ticketCarHashMap.size()) / capacity;
     }
 
     public boolean containsCar(Car car) {
@@ -32,7 +34,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if(isFull()){
+        if (isFull()) {
             return null;
         }
         ParkingTicket returnTicket = new ParkingTicket();
@@ -40,11 +42,11 @@ public class ParkingLot {
         return returnTicket;
     }
 
-    public boolean isRecognizedParkingTicket(ParkingTicket ticket){
+    public boolean isRecognizedParkingTicket(ParkingTicket ticket) {
         return ticketCarHashMap.containsKey(ticket);
     }
 
-    public Car fetch(ParkingTicket ticket){
+    public Car fetch(ParkingTicket ticket) {
         return ticketCarHashMap.remove(ticket);
     }
 }
