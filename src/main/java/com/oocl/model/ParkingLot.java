@@ -1,9 +1,5 @@
 package com.oocl.model;
 
-import com.oocl.exception.NoTicketException;
-import com.oocl.exception.NotEnoughPositionException;
-import com.oocl.exception.UnrecognizedParkingTicketException;
-
 import java.util.HashMap;
 
 public class ParkingLot {
@@ -19,27 +15,16 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public boolean isNotACar(Car car) {
-        return car == null;
-    }
-
-    public boolean isDoublePark(Car car) {
-        return ticketCarHashMap.containsValue(car);
-    }
-
     public boolean isFull() {
         return capacity == ticketCarHashMap.size();
     }
 
-    public void parkingLotAvailabilityChecking() throws NotEnoughPositionException{
-        if(isFull()){
-            throw new NotEnoughPositionException();
-        }
+    public boolean containsCar(Car car) {
+        return ticketCarHashMap.containsValue(car);
     }
 
     public ParkingTicket park(Car car) {
-        parkingLotAvailabilityChecking();
-        if (isNotACar(car) || isDoublePark(car)) {
+        if(isFull()){
             return null;
         }
         ParkingTicket returnTicket = new ParkingTicket();
@@ -47,17 +32,11 @@ public class ParkingLot {
         return returnTicket;
     }
 
-    public void isValidTicket(ParkingTicket ticket) throws UnrecognizedParkingTicketException, NoTicketException {
-        if(ticket==null){
-            throw new NoTicketException();
-        }
-        if(!ticketCarHashMap.containsKey(ticket)){
-            throw new UnrecognizedParkingTicketException();
-        }
+    public boolean isRecognizedParkingTicket(ParkingTicket ticket){
+        return ticketCarHashMap.containsKey(ticket);
     }
 
     public Car fetch(ParkingTicket ticket){
-        isValidTicket(ticket);
         return ticketCarHashMap.remove(ticket);
     }
 }
