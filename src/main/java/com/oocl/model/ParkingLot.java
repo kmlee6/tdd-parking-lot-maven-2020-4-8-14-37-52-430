@@ -24,8 +24,6 @@ public class ParkingLot {
     }
 
     public double getUsage() {
-        System.out.println("get Usage:");
-        System.out.println(1.0 * ticketCarHashMap.size() / capacity);
         return ((double) ticketCarHashMap.size()) / capacity;
     }
 
