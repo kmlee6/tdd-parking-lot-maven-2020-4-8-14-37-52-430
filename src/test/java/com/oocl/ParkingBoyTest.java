@@ -83,16 +83,16 @@ public class ParkingBoyTest {
         Car benz = new Car();
         tom.park(benz);
     }
-//
-//    @Test
-//    public void should_return_ticket_when_first_parking_lot_has_full_given_two_parking_lot() {
-//        ParkingLot firstParkingLot = new ParkingLot(1);
-//        ParkingLot secondParkingLot = new ParkingLot(1);
-//        ParkingBoy tom = new ParkingBoy(firstParkingLot, secondParkingLot);
-//        Car lamborghini = new Car();
-//        Car benz = new Car();
-//        tom.park(lamborghini);
-//        ParkingTicket ticket = tom.park(benz);
-//        assertNotNull(ticket);
-//    }
+
+    @Test
+    public void should_return_ticket_when_first_parking_lot_has_full_given_two_parking_lot() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        ParkingBoy tom = new ParkingBoy(firstParkingLot, secondParkingLot);
+        Car lamborghini = new Car();
+        Car benz = new Car();
+        tom.park(lamborghini);
+        ParkingTicket ticket = tom.park(benz);
+        assertNotNull(ticket);
+    }
 }

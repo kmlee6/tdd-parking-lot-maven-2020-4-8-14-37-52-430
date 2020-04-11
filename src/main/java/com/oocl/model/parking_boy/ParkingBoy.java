@@ -7,12 +7,15 @@ import com.oocl.model.Car;
 import com.oocl.model.ParkingLot;
 import com.oocl.model.ParkingTicket;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ParkingBoy {
-//    private List<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
-    private ParkingLot parkingLot;
-    public ParkingBoy(ParkingLot parkingLots){
-//        this.parkingLots.addAll(Arrays.asList(parkingLots));
-        this.parkingLot = parkingLots;
+    private List<ParkingLot> parkingLots = new ArrayList<>();
+
+    public ParkingBoy(ParkingLot... parkingLots) {
+        this.parkingLots.addAll(Arrays.asList(parkingLots));
     }
 
     public boolean isNotACar(Car car) {
@@ -20,36 +23,34 @@ public class ParkingBoy {
     }
 
     public boolean isDoublePark(Car car) {
-        return parkingLot.containsCar(car);
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.containsCar(car))
+                .count() > 0;
     }
 
-    public void parkingLotCapacityChecking() throws NotEnoughPositionException {
-        if(parkingLot.isFull()){
-            throw new NotEnoughPositionException();
-        }
+    public ParkingLot selectSuitableParkingLot() {
+        return parkingLots.stream()
+                .filter(parkingLot -> !parkingLot.isFull())
+                .findFirst()
+                .orElseThrow(NotEnoughPositionException::new);
     }
 
-    public ParkingTicket park(Car car){
-//        ParkingLot nextAvailableParkingLot = this.parkingLots.stream().filter(parkingLot -> !parkingLot.isFull()).findFirst().get();
-//        return nextAvailableParkingLot.park(car);
+    public ParkingTicket park(Car car) {
         if (isNotACar(car) || isDoublePark(car)) {
             return null;
         }
-        parkingLotCapacityChecking();
-        return parkingLot.park(car);
-    }
-
-    public void isValidTicket(ParkingTicket ticket) throws UnrecognizedParkingTicketException, NoTicketException {
-        if(ticket==null){
-            throw new NoTicketException();
-        }
-        if(!parkingLot.isRecognizedParkingTicket(ticket)){
-            throw new UnrecognizedParkingTicketException();
-        }
+        ParkingLot selectedParkingLot = selectSuitableParkingLot();
+        return selectedParkingLot.park(car);
     }
 
     public Car fetch(ParkingTicket ticket) {
-        isValidTicket(ticket);
-        return parkingLot.fetch(ticket);
+        if (ticket == null) {
+            throw new NoTicketException();
+        }
+        ParkingLot targetParkingLot = parkingLots.stream()
+                .filter(parkingLot -> parkingLot.isRecognizedParkingTicket(ticket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+        return targetParkingLot.fetch(ticket);
     }
 }
