@@ -18,17 +18,17 @@ public class ParkingBoy {
         this.parkingLots.addAll(Arrays.asList(parkingLots));
     }
 
-    public boolean isNotACar(Car car) {
+    protected boolean isNotACar(Car car) {
         return car == null;
     }
 
-    public boolean isDoublePark(Car car) {
+    protected boolean isDoublePark(Car car) {
         return parkingLots.stream()
                 .filter(parkingLot -> parkingLot.containsCar(car))
                 .count() > 0;
     }
 
-    public ParkingLot selectSuitableParkingLot() {
+    protected ParkingLot selectSuitableParkingLot() {
         return parkingLots.stream()
                 .filter(parkingLot -> !parkingLot.isFull())
                 .findFirst()
@@ -43,7 +43,7 @@ public class ParkingBoy {
         return selectedParkingLot.park(car);
     }
 
-    public ParkingLot searchTargetParkingLot(ParkingTicket ticket) {
+    protected ParkingLot searchTargetParkingLot(ParkingTicket ticket) {
         return parkingLots.stream()
                 .filter(parkingLot -> parkingLot.isRecognizedParkingTicket(ticket))
                 .findFirst()
