@@ -119,36 +119,4 @@ public class ParkingBoyTest {
         assertEquals(1, smallParkingLot.getFreeParkingSpace());
         assertEquals(99, bigParkingLot.getFreeParkingSpace());
     }
-
-    @Test
-    public void should_park_at_first_parking_lot_given_parked_by_smart_parking_boy() {
-        ParkingLot smallParkingLot = new ParkingLot(1);
-        ParkingLot bigParkingLot = new ParkingLot(100);
-
-        SmartParkingBoy tom = new SmartParkingBoy(smallParkingLot, bigParkingLot);
-        Car car = new Car();
-        tom.park(car);
-        assertEquals(1, smallParkingLot.getFreeParkingSpace());
-        assertEquals(99, bigParkingLot.getFreeParkingSpace());
-    }
-
-    @Test
-    public void should_park_at_first_parking_lot_when_parking_last_car_given_parked_by_super_smart_parking_boy() {
-        ParkingLot smallParkingLot = new ParkingLot(2);
-        ParkingLot bigParkingLot = new ParkingLot(5);
-
-        SuperSmartParkingBoy tom = new SuperSmartParkingBoy(smallParkingLot, bigParkingLot);
-        Car carA = new Car();
-        Car carB = new Car();
-        Car carC = new Car();
-        Car carD = new Car();
-        Car carE = new Car();
-        tom.park(carA);
-        tom.park(carB);
-        tom.park(carC);
-        tom.park(carD);
-        assertEquals(2, bigParkingLot.getFreeParkingSpace());
-        tom.park(carE);
-        assertEquals(0, smallParkingLot.getFreeParkingSpace());
-    }
 }
