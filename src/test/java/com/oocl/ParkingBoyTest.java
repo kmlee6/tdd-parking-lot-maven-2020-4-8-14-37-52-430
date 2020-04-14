@@ -8,14 +8,12 @@ import com.oocl.model.ParkingLot;
 import com.oocl.model.ParkingTicket;
 import com.oocl.model.parking_boy.ParkingBoy;
 import com.oocl.model.parking_boy.SmartParkingBoy;
-import com.oocl.model.parking_boy.SuperSmartParkingBoy;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNull;
 
 public class ParkingBoyTest {
     @Rule
